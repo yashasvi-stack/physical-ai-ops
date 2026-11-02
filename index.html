@@ -1,0 +1,714 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Physical AI Ops Data Hub</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            overflow: hidden;
+
+            background-image:
+                url("Background.jpeg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            position: relative;
+        }
+
+
+        /* =====================================================
+           BACKGROUND SLIGHT DARKENING
+        ===================================================== */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                rgba(0, 0, 0, 0.08);
+
+            z-index: 0;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .welcome-card {
+
+            width: 760px;
+
+            max-width: 90%;
+
+            min-height: 500px;
+
+            padding: 45px 55px;
+
+            background:
+                rgba(255, 255, 255, 0.96);
+
+            border-radius: 22px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.25);
+
+            position: relative;
+
+            z-index: 1;
+        }
+
+
+        /* =====================================================
+           DESICREW LOGO
+        ===================================================== */
+
+        .logo {
+
+            display: block;
+
+            width: 260px;
+
+            max-width: 80%;
+
+            height: auto;
+
+            object-fit: contain;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        h1 {
+
+            color: #123c69;
+
+            font-size: 40px;
+
+            font-weight: 700;
+
+            line-height: 1.2;
+
+            max-width: 650px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           MESSAGE WINDOW
+        ===================================================== */
+
+        .message-window {
+
+            width: 100%;
+
+            overflow: hidden;
+
+            position: relative;
+
+            margin-bottom: 35px;
+
+            padding: 12px 0;
+        }
+
+
+        /* =====================================================
+           MOVING MESSAGE
+        ===================================================== */
+
+        .moving-message {
+
+            display: inline-block;
+
+            white-space: nowrap;
+
+            font-size: 18px;
+
+            color: #596579;
+
+            font-weight: 400;
+
+            line-height: 1.6;
+
+            animation:
+                moveMessage
+                28s
+                linear
+                infinite;
+        }
+
+
+        @keyframes moveMessage {
+
+            0% {
+
+                transform:
+                    translateX(100%);
+            }
+
+            100% {
+
+                transform:
+                    translateX(-100%);
+            }
+        }
+
+
+        /* =====================================================
+           ENTER BUTTON
+        ===================================================== */
+
+        .dashboard-button {
+
+            padding:
+                15px 42px;
+
+            border:
+                none;
+
+            border-radius:
+                9px;
+
+            background:
+                #123c69;
+
+            color:
+                #ffffff;
+
+            font-size:
+                16px;
+
+            font-weight:
+                600;
+
+            cursor:
+                pointer;
+
+            transition:
+                all 0.25s ease;
+
+            position:
+                relative;
+
+            z-index:
+                10;
+        }
+
+
+        .dashboard-button:hover {
+
+            background:
+                #0d2f52;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(18, 60, 105, 0.30);
+        }
+
+
+        /* =====================================================
+           POPUP OVERLAY
+        ===================================================== */
+
+        .popup-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                rgba(0, 0, 0, 0.55);
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            z-index:
+                9999;
+        }
+
+
+        /* =====================================================
+           POPUP BOX
+        ===================================================== */
+
+        .popup {
+
+            width: 460px;
+
+            max-width: 90%;
+
+            padding: 40px;
+
+            text-align: center;
+
+            background:
+                #ffffff;
+
+            border-radius:
+                20px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* =====================================================
+           POPUP HEADING
+        ===================================================== */
+
+        .popup h2 {
+
+            color:
+                #123c69;
+
+            font-size:
+                26px;
+
+            margin-bottom:
+                18px;
+        }
+
+
+        /* =====================================================
+           POPUP TEXT
+        ===================================================== */
+
+        .popup p {
+
+            color:
+                #667085;
+
+            font-size:
+                16px;
+
+            line-height:
+                1.7;
+
+            margin-bottom:
+                28px;
+        }
+
+
+        /* =====================================================
+           POPUP BUTTONS
+        ===================================================== */
+
+        .popup-buttons {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+        }
+
+
+        /* =====================================================
+           CONTINUE BUTTON
+        ===================================================== */
+
+        .continue-button {
+
+            padding:
+                12px 28px;
+
+            border:
+                none;
+
+            border-radius:
+                8px;
+
+            background:
+                #123c69;
+
+            color:
+                #ffffff;
+
+            font-size:
+                15px;
+
+            font-weight:
+                600;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.25s;
+        }
+
+
+        .continue-button:hover {
+
+            background:
+                #0d2f52;
+        }
+
+
+        /* =====================================================
+           CANCEL BUTTON
+        ===================================================== */
+
+        .close-button {
+
+            padding:
+                12px 25px;
+
+            border:
+                1px solid #d0d5dd;
+
+            border-radius:
+                8px;
+
+            background:
+                #ffffff;
+
+            color:
+                #344054;
+
+            font-size:
+                15px;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.25s;
+        }
+
+
+        .close-button:hover {
+
+            background:
+                #f2f4f7;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .welcome-card {
+
+                width:
+                    90%;
+
+                min-height:
+                    480px;
+
+                padding:
+                    35px 25px;
+            }
+
+
+            .logo {
+
+                width:
+                    210px;
+
+                margin-bottom:
+                    25px;
+            }
+
+
+            h1 {
+
+                font-size:
+                    30px;
+            }
+
+
+            .moving-message {
+
+                font-size:
+                    16px;
+            }
+
+
+            .popup {
+
+                padding:
+                    30px 25px;
+            }
+
+
+            .popup-buttons {
+
+                flex-direction:
+                    column;
+            }
+
+
+            .continue-button,
+
+            .close-button {
+
+                width:
+                    100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         WELCOME PAGE
+    ====================================================== -->
+
+    <div class="welcome-card">
+
+
+        <!-- DESICREW LOGO -->
+
+        <img
+
+            src="Logo DC.png"
+
+            alt="DesiCrew Logo"
+
+            class="logo">
+
+
+        <!-- TITLE -->
+
+        <h1>
+
+            Welcome to Physical AI Ops Data Hub
+
+        </h1>
+
+
+        <!-- MOVING MESSAGE -->
+
+        <div class="message-window">
+
+            <div class="moving-message">
+
+                Empowering smarter operations through
+                data, technology and Physical AI
+
+                &nbsp;&nbsp; • &nbsp;&nbsp;
+
+                Connecting workforce intelligence,
+                operational visibility and AI data workflows
+
+                &nbsp;&nbsp; • &nbsp;&nbsp;
+
+                Enabling faster decisions,
+                stronger delivery and smarter operations
+
+                &nbsp;&nbsp; • &nbsp;&nbsp;
+
+                Building the future of AI-powered operations
+
+                &nbsp;&nbsp; • &nbsp;&nbsp;
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ENTER DASHBOARD BUTTON
+        ================================================== -->
+
+        <button
+
+            type="button"
+
+            class="dashboard-button"
+
+            onclick="document.getElementById('dashboardPopup').style.display='flex';">
+
+            Enter Dashboard
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         POPUP
+    ====================================================== -->
+
+    <div
+
+        id="dashboardPopup"
+
+        class="popup-overlay">
+
+
+        <div class="popup">
+
+
+            <h2>
+
+                Welcome to Physical AI Ops
+
+            </h2>
+
+
+            <p>
+
+                You are about to enter the
+                Physical AI Operations Dashboard.
+
+                <br><br>
+
+                Your central workspace for
+                workforce visibility, operational
+                performance, project tracking and
+                Physical AI delivery intelligence.
+
+            </p>
+
+
+            <!-- =================================================
+                 POPUP BUTTONS
+            ================================================== -->
+
+            <div class="popup-buttons">
+
+
+                <!-- CONTINUE -->
+
+                <button
+
+                    type="button"
+
+                    class="continue-button"
+
+                    onclick="window.location.href='https://script.google.com/macros/s/AKfycbzJfHNTANQwTWUGwZ0EhICbDCahs3G_7TKRWlGtKWpxD_kkL6u3ritV8Ve7WL3CqW5i5Q/exec';">
+
+                    Continue to Dashboard
+
+                </button>
+
+
+                <!-- CANCEL -->
+
+                <button
+
+                    type="button"
+
+                    class="close-button"
+
+                    onclick="document.getElementById('dashboardPopup').style.display='none';">
+
+                    Cancel
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+```
